@@ -36,19 +36,40 @@ function App() {
   }, []);
 
   return (
-    <InfiniteScroll
-      dataLength={users.length}
-      next={fetchUsers}
-      hasMore={hasMore}
-      loader={<h4>Loading...</h4>}
-      endMessage={<p>No more users to display</p>}
-    >
-      {users.map((user) => (
-        <div key={user.id}>
-          <p>{user.login}</p>
-        </div>
-      ))}
-    </InfiniteScroll>
+    <div className="container py-8">
+      <div className="mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-8">
+          React Infinite Scroll Demo
+        </h1>
+        <InfiniteScroll
+          dataLength={users.length}
+          next={fetchUsers}
+          hasMore={hasMore}
+          loader={
+            <h4 className="font-semibold mt-4 text-center">Loading...</h4>
+          }
+          endMessage={<p>No more users to display</p>}
+        >
+          <div className="flex flex-wrap gap-4 justify-between items-center">
+            {users.map((user, key) => (
+              <div
+                key={key}
+                className="border h-[8rem] w-[45%] sm:w-[30%] md:w-[20%] flex flex-col gap-2 items-center p-2"
+              >
+                <img
+                  src={user.avatar_url}
+                  alt={`Avatar image of ${user.login}`}
+                  width="80px"
+                  height="80px"
+                  className="rounded-full"
+                />
+                <p>{user.login}</p>
+              </div>
+            ))}
+          </div>
+        </InfiniteScroll>
+      </div>
+    </div>
   );
 }
 
